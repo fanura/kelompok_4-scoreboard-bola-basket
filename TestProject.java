@@ -1,6 +1,7 @@
 import java.awt.event.*; 
 import javax.swing.*; 
 import java.awt.Font;
+import java.util.concurrent.TimeUnit;
 import java.awt.event.ActionListener;
 
 public class TestProject extends Project1 implements ActionListener {
@@ -8,6 +9,7 @@ public class TestProject extends Project1 implements ActionListener {
 	private JLabel nama1, nama2;
 	private JTextField input1, input2, skor1, skor2;
 	private JTextArea note;
+	private JScrollPane scroll;
 	private JButton n1, n2, n3, m1, m2, m3, reset;
 	private int nilai1, nilai2;
 	private String teks = "";
@@ -26,26 +28,31 @@ public class TestProject extends Project1 implements ActionListener {
 		frame.add(nama1);
 		input1 = new JTextField();
 		input1.setBounds(70,90,210,50);
+		input1.setHorizontalAlignment(JTextField.CENTER);
 		frame.add(input1);
 		input1.setFont( new Font("Dialog", 1, 20));
 		nama2 = new JLabel("Nama Tim");
-		nama2.setBounds(660,70,100,20);
+		nama2.setBounds(670,70,100,20);
 		frame.add(nama2);
 		input2 = new JTextField();
 		input2.setBounds(600,90,210,50);
+		input2.setHorizontalAlignment(JTextField.CENTER);
 		frame.add(input2);
 		input2.setFont( new Font("Dialog", 1, 20));
 		skor1 = new JTextField(""+nilai1);
-		skor1.setBounds(110,150,120,150);
+		skor1.setBounds(70,150,210,150);
+		skor1.setHorizontalAlignment(JTextField.CENTER);
 		frame.add(skor1);
 		skor1.setFont( new Font("Dialog", 1, 72));
 		skor2 = new JTextField(""+nilai2);
-		skor2.setBounds(640,150,120,150);
+		skor2.setBounds(600,150,210,150);
+		skor2.setHorizontalAlignment(JTextField.CENTER);
 		frame.add(skor2);
 		skor2.setFont( new Font("Dialog", 1, 72));
 		note = new JTextArea();
-		note.setBounds(300,90,280,240);
-		frame.add(note);
+		scroll = new JScrollPane(note);
+		scroll.setBounds(300,90,280,240);
+		frame.add(scroll);
 		n1 = new JButton("+1");
 		frame.add(n1);
 		n1.setBounds(80,350,50,50);
@@ -138,17 +145,32 @@ public class TestProject extends Project1 implements ActionListener {
 			test.reset();
 			nilai1 = test.getNilai1();
 			nilai2 = test.getNilai2();
+			reset();
 			input1.setText("");
 			input2.setText("");
 			skor1.setText(String.valueOf(nilai1));
 			skor2.setText(String.valueOf(nilai2));
-			note.setText("");
+			note.setText(teks);
+			jeda();
 		}
 	} 
 	
 	public String pesan(int n, String tim){
 		String xyz = "\t"+tim+" mencetak "+n+" poin!!!\n";
 		return xyz;
+	}
+	
+	public void reset(){
+		teks = "";
+	}
+	
+	public void jeda(){
+		try {
+            Thread.sleep(2000);
+        } 
+		catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 	}
 	
 	public static void main(String[]args){
